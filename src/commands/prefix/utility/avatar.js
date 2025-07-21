@@ -1,10 +1,10 @@
-// prefix/avatar.js
 const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
   name: 'avatar',
   description: 'Displays the avatar of you or a mentioned user.',
   aliases: ['av'],
+  usage: 'avatar [@user | userID]',
 
   async execute(message, args) {
     let user;

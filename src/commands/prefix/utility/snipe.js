@@ -1,4 +1,5 @@
-const { EmbedBuilder } = require('discord.js');
+// prefix/snipe.js
+const { EmbedBuilder, PermissionsBitField } = require('discord.js');
 const { snipes } = require('../../../events/messageDelete');
 
 module.exports = {
@@ -6,8 +7,15 @@ module.exports = {
   description: 'Snipe the most recently deleted message in this channel.',
   aliases: [],
   async execute(message) {
-    const snipe = snipes.get(message.channel.id);
+    // Check if member has "ManageMessages" or "DeleteMessages" permission
+    const perms = message.member.permissionsIn(message.channel);
+    if (
+      !perms.has(PermissionsBitField.Flags.ManageMessages)
+    ) {
+      return message.reply('❌ You do not have permission to use this command.');
+    }
 
+    const snipe = snipes.get(message.channel.id);
     if (!snipe) {
       return message.channel.send('❌ There is no message to snipe!');
     }
