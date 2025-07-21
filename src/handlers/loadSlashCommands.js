@@ -27,4 +27,3 @@ module.exports = (client) => {
   load(commandsPath);
 
 };
-  console.log("Commands Loaded!")
